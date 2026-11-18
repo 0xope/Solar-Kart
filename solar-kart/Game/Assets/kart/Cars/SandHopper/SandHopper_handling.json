@@ -1,0 +1,13 @@
+{
+ "name": "Sand Hopper",
+ "top": 190,
+ "accel": 9,
+ "brake": 18,
+ "steer": 32,
+ "steerSpeed": 6.5,
+ "frontGrip": 1.05,
+ "rearGrip": 0.9,
+ "drift": 0.65,
+ "weight": 1,
+ "assist": 0.5
+}

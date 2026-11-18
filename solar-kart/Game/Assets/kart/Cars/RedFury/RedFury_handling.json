@@ -1,0 +1,13 @@
+{
+ "name": "Red Fury",
+ "top": 290,
+ "accel": 11,
+ "brake": 30,
+ "steer": 20,
+ "steerSpeed": 5,
+ "frontGrip": 1.6,
+ "rearGrip": 1.65,
+ "drift": 0.15,
+ "weight": 1.1,
+ "assist": 0.15
+}
