@@ -3,21 +3,21 @@ extends CharacterBody3D
 
 @export var max_forward_speed := 36.0
 @export var max_reverse_speed := 10.0
-@export var acceleration := 22.0
-@export var launch_boost_factor := 1.35
-@export var launch_boost_threshold := 12.0
-@export var brake_deceleration := 36.0
-@export var coast_deceleration := 6.0
+@export var acceleration := 13.0
+@export var launch_boost_factor := 1.18
+@export var launch_boost_threshold := 8.5
+@export var brake_deceleration := 24.0
+@export var coast_deceleration := 4.5
 @export var reverse_acceleration := 12.0
 @export var reverse_engage_speed := 0.5
 
-@export var turn_rate := 2.8
+@export var turn_rate := 2.6
 @export var steering_full_speed := 14.0
-@export var steering_min_factor := 0.38
-@export var lateral_grip := 16.0
-@export var max_lateral_slip := 4.5
-@export var turn_drag := 3.0
-@export var sharp_steer_threshold := 0.70
+@export var steering_min_factor := 0.42
+@export var lateral_grip := 18.0
+@export var max_lateral_slip := 3.5
+@export var turn_drag := 0.35
+@export var sharp_steer_threshold := 0.88
 
 @export var suspension_spring_stiffness := 20.0
 @export var suspension_damping := 8.5
@@ -220,13 +220,7 @@ func _apply_velocity(delta: float) -> void:
 	_intended_velocity = velocity
 
 func _move_kart(delta: float) -> void:
-	var previous_position := global_position
 	move_and_slide()
-	var actual_velocity := (global_position - previous_position) / maxf(delta, 0.0001)
-	var forward := -global_transform.basis.z
-	var right := global_transform.basis.x
-	_forward_speed = actual_velocity.dot(forward)
-	_lateral_speed = actual_velocity.dot(right)
 
 	for i in get_slide_collision_count():
 		var collision := get_slide_collision(i)
@@ -241,13 +235,14 @@ func _update_suspension(delta: float, throttle: float, steer: float) -> void:
 		return
 
 	# Target Pitch: Squat on launch/accel, Dive on heavy braking
+	# In Body (child of 90-deg rotated model), pitch rotates around local Z axis
 	var target_pitch := 0.0
 	if throttle > 0.1:
-		target_pitch = -max_body_pitch * clampf(throttle, 0.0, 1.0)
+		target_pitch = max_body_pitch * clampf(throttle, 0.0, 1.0)
 		if is_nitro_active():
 			target_pitch *= 1.45 # Extra punchy squat on boost!
 	elif throttle < -0.1:
-		target_pitch = max_body_pitch * 1.25 * clampf(-throttle, 0.0, 1.0)
+		target_pitch = -max_body_pitch * 1.15 * clampf(-throttle, 0.0, 1.0)
 
 	# Harmonic Spring Pitch
 	var pitch_force := (target_pitch - _body_pitch) * suspension_spring_stiffness
@@ -255,7 +250,8 @@ func _update_suspension(delta: float, throttle: float, steer: float) -> void:
 	_body_pitch_velocity *= exp(-suspension_damping * delta)
 	_body_pitch += _body_pitch_velocity * delta
 
-	# Target Roll: Chassis rolls into/out of turns with centrifugal force
+	# Target Roll: Chassis rolls with cornering force
+	# In Body, roll rotates around local X axis
 	var speed_factor := clampf(absf(_forward_speed) / 18.0, 0.0, 1.0)
 	var target_roll := -steer * max_body_roll * speed_factor
 
@@ -271,8 +267,9 @@ func _update_suspension(delta: float, throttle: float, steer: float) -> void:
 	_bounce_offset = sin(_suspension_time) * bounce_amplitude * speed_factor
 
 	# Apply to visual chassis node
-	_body_node.rotation.x = _body_pitch
-	_body_node.rotation.z = _body_roll
+	# X is roll (tilting left/right), Z is pitch (tilting front/back)
+	_body_node.rotation.x = _body_roll
+	_body_node.rotation.z = _body_pitch
 	_body_node.position.y = _bounce_offset
 
 func _animate_wheels(delta: float) -> void:

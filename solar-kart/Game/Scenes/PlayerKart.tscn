@@ -27,7 +27,7 @@ script = ExtResource("2")
 script = ExtResource("3")
 
 [node name="NitroEffect" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 2.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 2.22)
 script = ExtResource("4")
 
 [node name="FlameLeft" type="MeshInstance3D" parent="NitroEffect"]
