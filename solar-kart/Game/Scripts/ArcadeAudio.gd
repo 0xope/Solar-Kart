@@ -15,6 +15,9 @@ var snd_impact_light: AudioStreamWAV
 var snd_impact_heavy: AudioStreamWAV
 var snd_engine_loop: AudioStreamWAV
 var snd_skid_loop: AudioStreamWAV
+var snd_oob_warning: AudioStreamWAV
+var snd_teleport_whoosh: AudioStreamWAV
+var snd_teleport_drop: AudioStreamWAV
 
 func _ready() -> void:
 	_player_sfx = AudioStreamPlayer.new()
@@ -95,6 +98,15 @@ func play_nitro_cell() -> void:
 func play_impact(heavy: bool = false) -> void:
 	_play_clip(snd_impact_heavy if heavy else snd_impact_light, -3.0)
 
+func play_oob_warning() -> void:
+	_play_clip(snd_oob_warning, -4.0)
+
+func play_teleport_whoosh() -> void:
+	_play_clip(snd_teleport_whoosh, -3.0)
+
+func play_teleport_drop() -> void:
+	_play_clip(snd_teleport_drop, -2.5)
+
 func _play_clip(clip: AudioStreamWAV, vol_db: float = 0.0) -> void:
 	if clip == null:
 		return
@@ -115,6 +127,33 @@ func _generate_all_sounds() -> void:
 	snd_impact_heavy = _make_impact(75.0, 0.3)
 	snd_engine_loop = _make_engine_loop(0.8)
 	snd_skid_loop = _make_skid_loop(0.5)
+	snd_oob_warning = _make_tone(880.0, 0.12, 0.01, 0.08)
+	snd_teleport_whoosh = _make_sweep(240.0, 1100.0, 0.35)
+	snd_teleport_drop = _make_chord([110.0, 440.0, 880.0], 0.28)
+
+func _make_sweep(start_freq: float, end_freq: float, duration: float) -> AudioStreamWAV:
+	var sample_rate := 22050
+	var sample_count := int(sample_rate * duration)
+	var bytes := PackedByteArray()
+	bytes.resize(sample_count * 2)
+
+	var phase := 0.0
+	for i in range(sample_count):
+		var t := float(i) / float(sample_rate)
+		var progress := t / duration
+		var freq := lerpf(start_freq, end_freq, progress)
+		phase += TAU * freq / float(sample_rate)
+		var env := sin(progress * PI)
+		var s := sin(phase) * env * 0.75
+		var sample := int(clampf(s, -1.0, 1.0) * 32767.0)
+		bytes.encode_s16(i * 2, sample)
+
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sample_rate
+	stream.stereo = false
+	stream.data = bytes
+	return stream
 
 func _make_tone(freq: float, duration: float, attack: float, decay: float) -> AudioStreamWAV:
 	var sample_rate := 22050

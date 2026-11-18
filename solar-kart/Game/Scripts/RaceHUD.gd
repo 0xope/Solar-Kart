@@ -19,6 +19,11 @@ var _race_manager: Node
 var _kart: Node
 var _is_countdown_active := false
 
+var _oob_panel: PanelContainer
+var _oob_label: Label
+var _oob_vignette: ColorRect
+var _respawn_label: Label
+
 func _ready() -> void:
 	if finish_panel:
 		finish_panel.visible = false
@@ -30,7 +35,64 @@ func _ready() -> void:
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_pressed)
 
+	_setup_oob_ui()
 	call_deferred("_connect_signals")
+
+func _setup_oob_ui() -> void:
+	var root: Control = get_node_or_null("Root") as Control
+	if root == null:
+		return
+
+	# Red Warning Vignette around screen perimeter
+	_oob_vignette = ColorRect.new()
+	_oob_vignette.name = "OOBVignette"
+	_oob_vignette.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_oob_vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_oob_vignette.color = Color(1.0, 0.08, 0.08, 0.35)
+	_oob_vignette.modulate.a = 0.0
+	root.add_child(_oob_vignette)
+
+	# Out of Bounds Warning Panel
+	_oob_panel = PanelContainer.new()
+	_oob_panel.name = "OOBPanel"
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.1, 0.05, 0.05, 0.9)
+	sb.border_color = Color(1.0, 0.3, 0.15, 1.0)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(10)
+	sb.content_margin_left = 24
+	sb.content_margin_right = 24
+	sb.content_margin_top = 10
+	sb.content_margin_bottom = 10
+	_oob_panel.add_theme_stylebox_override("panel", sb)
+
+	_oob_label = Label.new()
+	_oob_label.name = "OOBLabel"
+	_oob_label.add_theme_font_size_override("font_size", 22)
+	_oob_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+	_oob_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_oob_label.text = "⚠️ OUT OF TRACK! 2.0s"
+	_oob_panel.add_child(_oob_label)
+
+	root.add_child(_oob_panel)
+	_oob_panel.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	_oob_panel.custom_minimum_size = Vector2(380, 50)
+	_oob_panel.position = Vector2(200, 85)
+	_oob_panel.visible = false
+
+	# Respawn Checkpoint Status Label inside RespawnFlash
+	if respawn_flash:
+		_respawn_label = Label.new()
+		_respawn_label.name = "RespawnLabel"
+		_respawn_label.set_anchors_preset(Control.PRESET_CENTER)
+		_respawn_label.custom_minimum_size = Vector2(500, 60)
+		_respawn_label.position = Vector2(150, 200)
+		_respawn_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_respawn_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_respawn_label.add_theme_font_size_override("font_size", 26)
+		_respawn_label.add_theme_color_override("font_color", Color(0.15, 0.95, 1.0))
+		_respawn_label.text = "⚡ RETURNING TO LAST CHECKPOINT ⚡"
+		respawn_flash.add_child(_respawn_label)
 
 func _connect_signals() -> void:
 	_race_manager = get_tree().root.find_child("RaceManager", true, false)
@@ -44,6 +106,7 @@ func _connect_signals() -> void:
 		_race_manager.coins_changed.connect(_on_coins_changed)
 		_race_manager.checkpoint_passed.connect(_on_checkpoint_passed)
 		_race_manager.respawn_triggered.connect(_on_respawn_triggered)
+		_race_manager.out_of_bounds_tick.connect(_on_out_of_bounds_tick)
 
 	if _kart != null and "nitro" in _kart and _kart.nitro != null:
 		_kart.nitro.charge_changed.connect(_on_nitro_charge_changed)
@@ -113,11 +176,32 @@ func _on_nitro_charge_changed(current: float, max_val: float) -> void:
 		nitro_bar.max_value = max_val
 		nitro_bar.value = current
 
+func _on_out_of_bounds_tick(remaining: float, is_active: bool) -> void:
+	if _oob_panel == null or _oob_label == null:
+		return
+	if is_active:
+		_oob_panel.visible = true
+		_oob_label.text = "⚠️ OUT OF TRACK! RETURN: %.1fs" % maxf(0.0, remaining)
+		if remaining <= 1.0:
+			_oob_label.add_theme_color_override("font_color", Color(1.0, 0.3, 0.2))
+		else:
+			_oob_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.15))
+		if _oob_vignette:
+			_oob_vignette.modulate.a = 0.45 + 0.25 * sin(Time.get_ticks_msec() * 0.015)
+	else:
+		_oob_panel.visible = false
+		if _oob_vignette:
+			_oob_vignette.modulate.a = 0.0
+
 func _on_respawn_triggered() -> void:
+	if _oob_panel:
+		_oob_panel.visible = false
+	if _oob_vignette:
+		_oob_vignette.modulate.a = 0.0
 	if respawn_flash:
-		respawn_flash.modulate.a = 0.6
+		respawn_flash.modulate.a = 0.92
 		var tween := create_tween()
-		tween.tween_property(respawn_flash, "modulate:a", 0.0, 0.35)
+		tween.tween_property(respawn_flash, "modulate:a", 0.0, 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func _on_race_finished(final_time: float) -> void:
 	if finish_panel:

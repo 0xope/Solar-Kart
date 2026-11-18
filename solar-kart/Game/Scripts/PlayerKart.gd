@@ -130,7 +130,14 @@ func _apply_locked_controls(delta: float) -> void:
 	var forward := -global_transform.basis.z
 	var right := global_transform.basis.x
 	velocity = forward * _forward_speed + right * _lateral_speed
-	velocity.y = 0.0
+
+	if global_position.y > ground_height:
+		velocity.y -= 25.0 * delta
+		global_position.y = maxf(ground_height, global_position.y + velocity.y * delta)
+	else:
+		velocity.y = 0.0
+		global_position.y = ground_height
+
 	move_and_slide()
 
 func _update_road_surface() -> void:
@@ -349,9 +356,11 @@ func apply_obstacle_impact(speed_loss_ratio: float, knockback_impulse: Vector3) 
 
 func respawn_at(target_transform: Transform3D) -> void:
 	_controls_enabled = false
-	_respawn_cooldown = 0.35
-	global_transform = target_transform
-	global_position.y = ground_height
+	_respawn_cooldown = 0.45
+	global_transform.basis = target_transform.basis
+	var spawn_pos := target_transform.origin
+	spawn_pos.y = ground_height + 0.65 # Hover drop for suspension landing bounce
+	global_position = spawn_pos
 	velocity = Vector3.ZERO
 	_forward_speed = 0.0
 	_lateral_speed = 0.0
@@ -362,6 +371,57 @@ func respawn_at(target_transform: Transform3D) -> void:
 	_body_roll_velocity = 0.0
 	if nitro != null and nitro.is_active():
 		nitro.reset()
+
+	_spawn_respawn_vfx(target_transform.origin)
+
+func _spawn_respawn_vfx(ground_pos: Vector3) -> void:
+	# 1. Holographic Quantum Landing Ring on track surface
+	var ring := MeshInstance3D.new()
+	var torus := TorusMesh.new()
+	torus.inner_radius = 1.3
+	torus.outer_radius = 1.7
+	torus.rings = 20
+	torus.ring_segments = 8
+
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	mat.albedo_color = Color(0.1, 0.9, 1.0, 0.85)
+
+	ring.mesh = torus
+	ring.material_override = mat
+	ring.rotation_degrees = Vector3(90, 0, 0)
+	get_parent().add_child(ring)
+	ring.global_position = Vector3(ground_pos.x, ground_height + 0.04, ground_pos.z)
+
+	var tween := ring.create_tween()
+	tween.tween_property(ring, "scale", Vector3(2.2, 2.2, 2.2), 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(mat, "albedo_color:a", 0.0, 0.45)
+	tween.tween_callback(ring.queue_free)
+
+	# 2. Cyan Energy Spark Dispersal
+	for i in range(12):
+		var angle := randf() * TAU
+		var offset := Vector3(cos(angle) * 1.0, 0.1, sin(angle) * 1.0)
+		var spark := MeshInstance3D.new()
+		var box := BoxMesh.new()
+		box.size = Vector3(0.08, 0.08, 0.08)
+		var spark_mat := StandardMaterial3D.new()
+		spark_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		spark_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		spark_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+		spark_mat.albedo_color = Color(0.3, 0.95, 1.0, 0.9)
+		spark.mesh = box
+		spark.material_override = spark_mat
+		get_parent().add_child(spark)
+		spark.global_position = ground_pos + offset
+
+		var s_tween := spark.create_tween()
+		var target_pos := spark.global_position + Vector3(cos(angle) * 1.8, randf_range(0.4, 1.1), sin(angle) * 1.8)
+		s_tween.tween_property(spark, "global_position", target_pos, 0.4)
+		s_tween.parallel().tween_property(spark_mat, "albedo_color:a", 0.0, 0.4)
+		s_tween.tween_callback(spark.queue_free)
 
 func reset_to_transform(t: Transform3D) -> void:
 	global_transform = t

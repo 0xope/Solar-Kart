@@ -10,6 +10,7 @@ signal race_finished(final_time: float)
 signal coins_changed(count: int)
 signal checkpoint_passed(index: int, total: int)
 signal respawn_triggered
+signal out_of_bounds_tick(remaining_seconds: float, is_active: bool)
 
 enum RaceState {
 	COUNTDOWN,
@@ -22,8 +23,8 @@ enum RaceState {
 @export var track_json_path := "res://Game/Assets/enviroment/Tracks/KartRing/KartRing.json"
 @export var road_reference_path: NodePath = NodePath("../KartRing")
 @export var fall_height_threshold := -4.0
-@export var max_offroad_distance := 35.0
-@export var offroad_respawn_delay := 1.2
+@export var max_offroad_distance := 6.8
+@export var out_of_bounds_time_limit := 2.0
 
 var state: RaceState = RaceState.COUNTDOWN
 var current_lap := 1
@@ -42,7 +43,9 @@ var _start_grid_transform: Transform3D
 
 var _countdown_timer := 3.5
 var _last_countdown_display := ""
-var _offroad_timer := 0.0
+var _oob_timer := 2.0
+var _is_out_of_bounds := false
+var _oob_sound_timer := 0.0
 var _checkpoints_container: Node3D
 var _collectibles_container: Node3D
 
@@ -109,7 +112,8 @@ func _start_countdown() -> void:
 	_next_checkpoint = 0
 	_countdown_timer = 3.6
 	_last_countdown_display = ""
-	_offroad_timer = 0.0
+	_oob_timer = out_of_bounds_time_limit
+	_is_out_of_bounds = false
 
 	if _kart != null and _kart.has_method("set_controls_enabled"):
 		_kart.set_controls_enabled(false)
@@ -162,24 +166,46 @@ func _process_racing(delta: float) -> void:
 	if _kart == null:
 		return
 
-	# Out of bounds check 1: Fall off
+	# Out of bounds check 1: Deep fall off track (instant void respawn)
 	if _kart.global_position.y < fall_height_threshold:
 		trigger_respawn()
 		return
 
-	# Out of bounds check 2: Far off track
+	# Out of bounds check 2: 2-second countdown when leaving track bounds
 	var query_pos := _kart.global_position
 	if _road_reference != null:
 		query_pos = _road_reference.to_local(query_pos)
 	var info := _road_surface.road_info(query_pos)
 	var dist: float = float(info.get("distance", 0.0))
-	if dist > max_offroad_distance:
-		_offroad_timer += delta
-		if _offroad_timer > offroad_respawn_delay:
+
+	# Out of bounds if distance > max_offroad_distance or dropped off road deck
+	var is_oob: bool = dist > max_offroad_distance or _kart.global_position.y < -1.0
+
+	if is_oob:
+		if not _is_out_of_bounds:
+			_is_out_of_bounds = true
+			_oob_timer = out_of_bounds_time_limit
+			_oob_sound_timer = 0.0
+
+		_oob_timer = maxf(0.0, _oob_timer - delta)
+		out_of_bounds_tick.emit(_oob_timer, true)
+
+		_oob_sound_timer -= delta
+		if _oob_sound_timer <= 0.0:
+			_oob_sound_timer = 0.45
+			if _audio != null and _audio.has_method("play_oob_warning"):
+				_audio.play_oob_warning()
+
+		if _oob_timer <= 0.0:
+			_is_out_of_bounds = false
+			out_of_bounds_tick.emit(0.0, false)
 			trigger_respawn()
 			return
 	else:
-		_offroad_timer = maxf(0.0, _offroad_timer - delta * 2.0)
+		if _is_out_of_bounds:
+			_is_out_of_bounds = false
+			_oob_timer = out_of_bounds_time_limit
+			out_of_bounds_tick.emit(0.0, false)
 
 func _on_checkpoint_passed(index: int, cp_transform: Transform3D) -> void:
 	if state != RaceState.RACING:
@@ -205,6 +231,8 @@ func _on_checkpoint_passed(index: int, cp_transform: Transform3D) -> void:
 
 func _finish_race() -> void:
 	state = RaceState.FINISHED
+	_is_out_of_bounds = false
+	out_of_bounds_tick.emit(0.0, false)
 	if _kart != null and _kart.has_method("set_controls_enabled"):
 		_kart.set_controls_enabled(false)
 	race_finished.emit(race_time)
@@ -214,16 +242,23 @@ func trigger_respawn() -> void:
 		return
 
 	state = RaceState.RESPAWNING
-	_offroad_timer = 0.0
+	_is_out_of_bounds = false
+	_oob_timer = out_of_bounds_time_limit
+	out_of_bounds_tick.emit(0.0, false)
 	respawn_triggered.emit()
+
+	if _audio != null and _audio.has_method("play_teleport_whoosh"):
+		_audio.play_teleport_whoosh()
 
 	if _kart != null and _kart.has_method("respawn_at"):
 		_kart.respawn_at(_last_valid_respawn_transform)
 
-	# Brief respawn transition before resuming race state
-	get_tree().create_timer(0.4).timeout.connect(func():
+	# Smooth AAA respawn transition before restoring controls
+	get_tree().create_timer(0.45).timeout.connect(func():
 		if state == RaceState.RESPAWNING:
 			state = RaceState.RACING
+			if _audio != null and _audio.has_method("play_teleport_drop"):
+				_audio.play_teleport_drop()
 			if _kart != null and _kart.has_method("set_controls_enabled"):
 				_kart.set_controls_enabled(true)
 	)
