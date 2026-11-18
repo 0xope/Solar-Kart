@@ -1,0 +1,182 @@
+[gd_scene load_steps=18 format=3 uid="uid://dfyd04bs8vuih"]
+
+[ext_resource type="PackedScene" uid="uid://b114puio3c01h" path="res://Game/Assets/enviroment/Tracks/KartRing/KartRing.glb" id="1"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/PlayerKart.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/ThirdPersonCamera.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bsaylc22su6i5" path="res://Game/Assets/enviroment/Props/3D/CheckeredFlag.glb" id="4"]
+[ext_resource type="Script" path="res://Game/Scripts/ArcadeAudio.gd" id="5"]
+[ext_resource type="Script" path="res://Game/Scripts/RaceManager.gd" id="6"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/RaceHUD.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Obstacles/ObstacleCone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Obstacles/ObstacleTireStack.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Obstacles/ObstacleBarrier.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Obstacles/ObstacleCrate.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Collectibles/SolarCoin.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://Game/Scenes/Collectibles/NitroCell.tscn" id="13"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.12, 0.38, 0.85, 1)
+sky_horizon_color = Color(0.82, 0.88, 0.96, 1)
+ground_bottom_color = Color(0.12, 0.15, 0.18, 1)
+ground_horizon_color = Color(0.48, 0.54, 0.6, 1)
+sun_angle_max = 35.0
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 3
+ambient_light_color = Color(0.7, 0.8, 0.9, 1)
+ambient_light_energy = 0.65
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.45
+glow_bloom = 0.12
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flagpole"]
+size = Vector3(0.15, 3.0, 0.15)
+
+[node name="TestTrack" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.825336, 0.399262, -0.399263, 0, 0.707107, 0.707107, 0.564643, -0.5836, 0.583601, 0, 20, 0)
+light_color = Color(1, 0.96, 0.9, 1)
+light_energy = 1.35
+shadow_enabled = true
+directional_shadow_max_distance = 300.0
+
+[node name="ArcadeAudio" type="Node" parent="."]
+script = ExtResource("5")
+
+[node name="RaceManager" type="Node" parent="."]
+script = ExtResource("6")
+road_reference_path = NodePath("../KartRing")
+
+[node name="RaceHUD" parent="." instance=ExtResource("7")]
+
+[node name="KartRing" parent="." instance=ExtResource("1")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="PlayerKart" parent="." instance=ExtResource("2")]
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, -24.2, 0, -4.9)
+road_reference_path = NodePath("../KartRing")
+
+[node name="ThirdPersonCamera" parent="." instance=ExtResource("3")]
+target_path = NodePath("../PlayerKart")
+
+[node name="CheckeredFlag_Left" parent="." instance=ExtResource("4")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -13.5)
+
+[node name="FlagBodyL" type="StaticBody3D" parent="CheckeredFlag_Left"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CheckeredFlag_Left/FlagBodyL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_flagpole")
+
+[node name="CheckeredFlag_Right" parent="." instance=ExtResource("4")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 13.5)
+
+[node name="FlagBodyR" type="StaticBody3D" parent="CheckeredFlag_Right"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CheckeredFlag_Right/FlagBodyR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_flagpole")
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Cone_1" parent="Obstacles" instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -10.5)
+
+[node name="Cone_2" parent="Obstacles" instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0, -10.5)
+
+[node name="Cone_3" parent="Obstacles" instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 0, -10.5)
+
+[node name="Cone_4" parent="Obstacles" instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 0, -9.0)
+
+[node name="TireStack_Turn1" parent="Obstacles" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 192, 0, -7.5)
+
+[node name="Barrier_Turn1_Outer" parent="Obstacles" instance=ExtResource("10")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 205, 0, -14.0)
+
+[node name="Barrier_Turn1_Outer2" parent="Obstacles" instance=ExtResource("10")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 215, 0, -9.0)
+
+[node name="Crate_Turn2_1" parent="Obstacles" instance=ExtResource("11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 282, 0, 115)
+
+[node name="Crate_Turn2_2" parent="Obstacles" instance=ExtResource("11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 280, 0, 125)
+
+[node name="TireStack_Chicane" parent="Obstacles" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 0, 365)
+
+[node name="Barrier_Hairpin_1" parent="Obstacles" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 405)
+
+[node name="Barrier_Hairpin_2" parent="Obstacles" instance=ExtResource("10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 405)
+
+[node name="TireStack_Final" parent="Obstacles" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 0, 115)
+
+[node name="Collectibles" type="Node3D" parent="."]
+
+[node name="SolarCoin_1" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -2.5)
+
+[node name="SolarCoin_2" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -2.5)
+
+[node name="SolarCoin_3" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 0, -2.5)
+
+[node name="SolarCoin_4" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 0, -2.5)
+
+[node name="NitroCell_1" parent="Collectibles" instance=ExtResource("13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115, 0, -2.5)
+
+[node name="SolarCoin_5" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 175, 0, 0.0)
+
+[node name="SolarCoin_6" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205, 0, 18.0)
+
+[node name="SolarCoin_7" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 235, 0, 48.0)
+
+[node name="NitroCell_2" parent="Collectibles" instance=ExtResource("13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 0, 142)
+
+[node name="SolarCoin_8" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210, 0, 225)
+
+[node name="SolarCoin_9" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160, 0, 235)
+
+[node name="SolarCoin_10" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 0, 240)
+
+[node name="NitroCell_3" parent="Collectibles" instance=ExtResource("13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 395)
+
+[node name="SolarCoin_11" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 260)
+
+[node name="SolarCoin_12" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 200)
+
+[node name="SolarCoin_13" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0, 75)
+
+[node name="SolarCoin_14" parent="Collectibles" instance=ExtResource("12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 20)

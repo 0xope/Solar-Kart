@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://dtt4u1qu6erwb" path="res://Game/Scripts/ThirdPersonCamera.gd" id="1"]
+
+[node name="ThirdPersonCamera" type="Camera3D"]
+current = true
+script = ExtResource("1")
+target_path = NodePath("../PlayerKart")
+distance = 8.0
+height = 3.5
+look_height = 1.0
+look_ahead = 4.0
+follow_speed = 8.0

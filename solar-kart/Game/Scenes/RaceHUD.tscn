@@ -1,0 +1,279 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Game/Scripts/RaceHUD.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_Panel"]
+bg_color = Color(0.08, 0.1, 0.14, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_NitroBg"]
+bg_color = Color(0.1, 0.12, 0.16, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_NitroFill"]
+bg_color = Color(0.05, 0.85, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_Button"]
+bg_color = Color(0.12, 0.6, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+
+[node name="RaceHUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopLeft" type="MarginContainer" parent="Root"]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 180.0
+offset_bottom = 84.0
+
+[node name="LapPanel" type="PanelContainer" parent="Root/TopLeft"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_Panel")
+
+[node name="VBox" type="VBoxContainer" parent="Root/TopLeft/LapPanel"]
+layout_mode = 2
+
+[node name="LapLabel" type="Label" parent="Root/TopLeft/LapPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "LAP 1/3"
+
+[node name="CpLabel" type="Label" parent="Root/TopLeft/LapPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.65, 0.75, 0.85, 1)
+text = "CP 1/8"
+
+[node name="TopCenter" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 24.0
+offset_right = 90.0
+offset_bottom = 74.0
+grow_horizontal = 2
+
+[node name="TimerPanel" type="PanelContainer" parent="Root/TopCenter"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_Panel")
+
+[node name="TimerLabel" type="Label" parent="Root/TopCenter/TimerPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+text = "00:00.00"
+horizontal_alignment = 1
+
+[node name="TopRight" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 74.0
+grow_horizontal = 0
+
+[node name="CoinPanel" type="PanelContainer" parent="Root/TopRight"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_Panel")
+
+[node name="HBox" type="HBoxContainer" parent="Root/TopRight/CoinPanel"]
+layout_mode = 2
+
+[node name="CoinIcon" type="Label" parent="Root/TopRight/CoinPanel/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.85, 0.1, 1)
+text = "★ COINS:"
+
+[node name="CoinLabel" type="Label" parent="Root/TopRight/CoinPanel/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+text = "0"
+
+[node name="Center" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CountdownLabel" type="Label" parent="Root/Center"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 60)
+theme_override_font_sizes/font_size = 76
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinishPanel" type="PanelContainer" parent="Root/Center"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -120.0
+offset_right = 180.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_Panel")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Center/FinishPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Root/Center/FinishPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+text = "RACE FINISHED!"
+horizontal_alignment = 1
+
+[node name="FinalTimeLabel" type="Label" parent="Root/Center/FinishPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "FINAL TIME: 00:00.00"
+horizontal_alignment = 1
+
+[node name="FinalCoinsLabel" type="Label" parent="Root/Center/FinishPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "SOLAR COINS: 0"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Root/Center/FinishPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_Button")
+text = "RESTART RACE [R]"
+
+[node name="BottomCenter" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NitroContainer" type="VBoxContainer" parent="Root/BottomCenter"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NitroLabel" type="Label" parent="Root/BottomCenter/NitroContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+text = "NITRO [SPACE]"
+horizontal_alignment = 1
+
+[node name="NitroBar" type="ProgressBar" parent="Root/BottomCenter/NitroContainer"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBox_NitroBg")
+theme_override_styles/fill = SubResource("StyleBox_NitroFill")
+value = 100.0
+show_percentage = false
+
+[node name="BottomRight" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -74.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SpeedPanel" type="PanelContainer" parent="Root/BottomRight"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_Panel")
+
+[node name="SpeedLabel" type="Label" parent="Root/BottomRight/SpeedPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+text = "  0 KM/H"
+horizontal_alignment = 1
+
+[node name="RespawnFlash" type="ColorRect" parent="Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0.95, 1, 0.7)

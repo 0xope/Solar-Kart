@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Game/Scripts/Collectible.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_CyanGlow"]
+albedo_color = Color(0.1, 0.85, 1, 1)
+metallic = 0.5
+roughness = 0.15
+emission_enabled = true
+emission = Color(0.05, 0.8, 1, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_CellCap"]
+albedo_color = Color(0.15, 0.2, 0.25, 1)
+metallic = 0.9
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_CellBody"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.65
+radial_segments = 12
+
+[sub_resource type="SphereMesh" id="SphereMesh_Cap"]
+radius = 0.27
+height = 0.35
+
+[sub_resource type="SphereShape3D" id="SphereShape_Pickup"]
+radius = 1.2
+
+[node name="NitroCell" type="Node3D"]
+script = ExtResource("1")
+collectible_type = 1
+nitro_restore_amount = 35.0
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="CellBody" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("CylinderMesh_CellBody")
+surface_material_override/0 = SubResource("Mat_CyanGlow")
+
+[node name="TopCap" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("SphereMesh_Cap")
+surface_material_override/0 = SubResource("Mat_CellCap")
+
+[node name="BottomCap" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+mesh = SubResource("SphereMesh_Cap")
+surface_material_override/0 = SubResource("Mat_CellCap")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape_Pickup")

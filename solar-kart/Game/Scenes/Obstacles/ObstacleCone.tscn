@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Game/Scripts/Obstacle.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://o32drvra3rfw" path="res://Game/Assets/enviroment/Props/3D/Cone.glb" id="2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_Static"]
+height = 0.8
+radius = 0.35
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_Area"]
+height = 0.9
+radius = 0.55
+
+[node name="ObstacleCone" type="Node3D"]
+script = ExtResource("1")
+obstacle_type = 0
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+
+[node name="ConeMesh" parent="Visual" instance=ExtResource("2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape_Static")
+
+[node name="HitArea" type="Area3D" parent="."]
+
+[node name="AreaCollisionShape" type="CollisionShape3D" parent="HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("CylinderShape_Area")
