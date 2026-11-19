@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b4pukqi4445y0"]
+
+[ext_resource type="Texture2D" uid="uid://d4iywkb6a6xtd" path="res://Game/Assets/GUI/Screens/Menu.png" id="1_srjb7"]
+
+[node name="Control" type="Control" unique_id=232237156]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=372403059]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_srjb7")

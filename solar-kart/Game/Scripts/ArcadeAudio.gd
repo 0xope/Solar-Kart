@@ -18,6 +18,8 @@ var snd_skid_loop: AudioStreamWAV
 var snd_oob_warning: AudioStreamWAV
 var snd_teleport_whoosh: AudioStreamWAV
 var snd_teleport_drop: AudioStreamWAV
+var snd_ui_hover: AudioStreamWAV
+var snd_ui_click: AudioStreamWAV
 
 func _ready() -> void:
 	_player_sfx = AudioStreamPlayer.new()
@@ -107,6 +109,12 @@ func play_teleport_whoosh() -> void:
 func play_teleport_drop() -> void:
 	_play_clip(snd_teleport_drop, -2.5)
 
+func play_ui_hover() -> void:
+	_play_clip(snd_ui_hover, -10.0)
+
+func play_ui_click() -> void:
+	_play_clip(snd_ui_click, -4.0)
+
 func _play_clip(clip: AudioStreamWAV, vol_db: float = 0.0) -> void:
 	if clip == null:
 		return
@@ -130,6 +138,8 @@ func _generate_all_sounds() -> void:
 	snd_oob_warning = _make_tone(880.0, 0.12, 0.01, 0.08)
 	snd_teleport_whoosh = _make_sweep(240.0, 1100.0, 0.35)
 	snd_teleport_drop = _make_chord([110.0, 440.0, 880.0], 0.28)
+	snd_ui_hover = _make_tone(1046.5, 0.04, 0.005, 0.035)
+	snd_ui_click = _make_chord([659.25, 987.77], 0.14)
 
 func _make_sweep(start_freq: float, end_freq: float, duration: float) -> AudioStreamWAV:
 	var sample_rate := 22050
