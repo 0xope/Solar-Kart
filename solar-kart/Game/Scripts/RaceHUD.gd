@@ -35,8 +35,21 @@ func _ready() -> void:
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_pressed)
 
+	_setup_menu_button()
 	_setup_oob_ui()
 	call_deferred("_connect_signals")
+
+func _setup_menu_button() -> void:
+	if finish_panel:
+		var vbox := finish_panel.get_node_or_null("VBox") as VBoxContainer
+		if vbox != null and vbox.get_node_or_null("MenuButton") == null:
+			var menu_btn := Button.new()
+			menu_btn.name = "MenuButton"
+			menu_btn.text = "MAIN MENU [M]"
+			menu_btn.pressed.connect(func():
+				get_tree().change_scene_to_file("res://Game/Scenes/MainMenu.tscn")
+			)
+			vbox.add_child(menu_btn)
 
 func _setup_oob_ui() -> void:
 	var root: Control = get_node_or_null("Root") as Control

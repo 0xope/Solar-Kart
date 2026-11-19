@@ -1,0 +1,821 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Game/Scripts/MainMenu.gd" id="1_gcpx7"]
+[ext_resource type="Texture2D" path="res://Game/Assets/GUI/Screens/Menu.png" id="2_5c1ua"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pj8rl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52ffp"]
+bg_color = Color(1, 0.95, 0.5, 0.35)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 0.6, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmla4"]
+bg_color = Color(1, 0.85, 0.2, 0.15)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.9, 0.3, 0.9)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04d4e"]
+bg_color = Color(0.2, 0.85, 1, 0.35)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.95, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2uce"]
+bg_color = Color(0.1, 0.7, 1, 0.18)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.9, 1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2c8ex"]
+bg_color = Color(0.2, 1, 0.4, 0.3)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 1, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5le8"]
+content_margin_left = 32.0
+content_margin_top = 24.0
+content_margin_right = 32.0
+content_margin_bottom = 28.0
+bg_color = Color(0.06, 0.09, 0.15, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.15, 0.82, 1, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0.5, 0.9, 0.25)
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4bgr"]
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+bg_color = Color(0.9, 0.2, 0.2, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MainMenu" type="Control" unique_id=258507032]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_gcpx7")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1826561750]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_5c1ua")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ButtonsLayer" type="Control" parent="." unique_id=1960130689]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PlayButton" type="Button" parent="ButtonsLayer" unique_id=827631160]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 560.0
+offset_right = 1310.0
+offset_bottom = 690.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_52ffp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pmla4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="LeaderboardButton" type="Button" parent="ButtonsLayer" unique_id=1923343527]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 715.0
+offset_right = 940.0
+offset_bottom = 790.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="ShopButton" type="Button" parent="ButtonsLayer" unique_id=1890474892]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 805.0
+offset_right = 940.0
+offset_bottom = 880.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="HowToPlayButton" type="Button" parent="ButtonsLayer" unique_id=248106418]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 895.0
+offset_right = 940.0
+offset_bottom = 970.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="GarageButton" type="Button" parent="ButtonsLayer" unique_id=810527524]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 715.0
+offset_right = 1445.0
+offset_bottom = 790.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="WalletButton" type="Button" parent="ButtonsLayer" unique_id=420233799]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 805.0
+offset_right = 1445.0
+offset_bottom = 880.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="SettingsButton" type="Button" parent="ButtonsLayer" unique_id=1462125460]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 895.0
+offset_right = 1445.0
+offset_bottom = 970.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="ProfileButton" type="Button" parent="ButtonsLayer" unique_id=1431590360]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 25.0
+offset_right = 420.0
+offset_bottom = 120.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04d4e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2uce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="CoinPlusButton" type="Button" parent="ButtonsLayer" unique_id=1544233201]
+layout_mode = 0
+offset_left = 1542.0
+offset_top = 34.0
+offset_right = 1592.0
+offset_bottom = 90.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2c8ex")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2c8ex")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="GemPlusButton" type="Button" parent="ButtonsLayer" unique_id=1725051545]
+layout_mode = 0
+offset_left = 1798.0
+offset_top = 34.0
+offset_right = 1848.0
+offset_bottom = 90.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pj8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2c8ex")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2c8ex")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pj8rl")
+flat = true
+
+[node name="ModalsLayer" type="Control" parent="." unique_id=826387435]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Backdrop" type="ColorRect" parent="ModalsLayer" unique_id=1736248819]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.04, 0.08, 0.75)
+
+[node name="LeaderboardModal" type="PanelContainer" parent="ModalsLayer" unique_id=1075198434]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 230.0
+offset_right = 1385.0
+offset_bottom = 850.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@2" type="VBoxContainer" parent="ModalsLayer/LeaderboardModal" unique_id=830240983]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@3" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2" unique_id=1159207974]
+layout_mode = 2
+
+[node name="@Label@4" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@HBoxContainer@3" unique_id=1951978881]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "🏆 GLOBAL LEADERBOARD - TOP DRIVERS"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@HBoxContainer@3" unique_id=305707579]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@5" type="HSeparator" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2" unique_id=1684969468]
+layout_mode = 2
+
+[node name="@Label@6" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2" unique_id=408682890]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "TRACK: KART RING CIRCUIT | BEST SINGLE LAP TIMES"
+
+[node name="@ScrollContainer@9" type="ScrollContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2" unique_id=65539297]
+custom_minimum_size = Vector2(0, 420)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="@VBoxContainer@10" type="VBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9" unique_id=1211082723]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="@HBoxContainer@12" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=513392766]
+layout_mode = 2
+
+[node name="@Label@11" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@12" unique_id=1997534100]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "🥇 #1      SolarSpeedster      Red Fury        00:24.18      +500 COINS"
+
+[node name="@HBoxContainer@14" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=1760029984]
+layout_mode = 2
+
+[node name="@Label@13" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@14" unique_id=1594927038]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "🥈 #2      NeonPhantom         Sand Hopper     00:25.42      +300 COINS"
+
+[node name="@HBoxContainer@16" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=501653019]
+layout_mode = 2
+
+[node name="@Label@15" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@16" unique_id=1670127899]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "🥉 #3      SolanaDrifter       Red Fury        00:26.05      +150 COINS"
+
+[node name="@HBoxContainer@18" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=1587970616]
+layout_mode = 2
+
+[node name="@Label@17" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@18" unique_id=893936706]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "4th       CyberRider          Red Fury        00:27.80      +50 COINS"
+
+[node name="@HBoxContainer@20" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=637730321]
+layout_mode = 2
+
+[node name="@Label@19" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@20" unique_id=1413244920]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "5th       StarKart            Sand Hopper     00:28.95      +25 COINS"
+
+[node name="@HBoxContainer@22" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=173510944]
+layout_mode = 2
+
+[node name="@Label@21" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@22" unique_id=648129324]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "6th       TurboApex           Red Fury        00:29.33      —"
+
+[node name="@HBoxContainer@24" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=694152682]
+layout_mode = 2
+
+[node name="@Label@23" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@24" unique_id=1976388485]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "7th       QuantumRacer        Sand Hopper     00:30.12      —"
+
+[node name="@HBoxContainer@26" type="HBoxContainer" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10" unique_id=1851842293]
+layout_mode = 2
+
+[node name="@Label@25" type="Label" parent="ModalsLayer/LeaderboardModal/@VBoxContainer@2/@ScrollContainer@9/@VBoxContainer@10/@HBoxContainer@26" unique_id=1251927206]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "⭐ 12th    Player123 (YOU)     Red Fury        00:32.40      PERSONAL BEST"
+
+[node name="GarageModal" type="PanelContainer" parent="ModalsLayer" unique_id=1509159860]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 240.0
+offset_right = 1400.0
+offset_bottom = 840.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@27" type="VBoxContainer" parent="ModalsLayer/GarageModal" unique_id=359042852]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@28" type="HBoxContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27" unique_id=1152338292]
+layout_mode = 2
+
+[node name="@Label@29" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@28" unique_id=612612528]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "🏎️ GARAGE & KART CUSTOMIZATION"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@28" unique_id=1443386091]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@30" type="HSeparator" parent="ModalsLayer/GarageModal/@VBoxContainer@27" unique_id=1836527243]
+layout_mode = 2
+
+[node name="@HBoxContainer@31" type="HBoxContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27" unique_id=641357401]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="@PanelContainer@38" type="PanelContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31" unique_id=501945144]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@VBoxContainer@32" type="VBoxContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38" unique_id=589795539]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="@Label@33" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38/@VBoxContainer@32" unique_id=208953085]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "🔴 RED FURY"
+
+[node name="@Label@34" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38/@VBoxContainer@32" unique_id=1041746552]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "High-speed solar interceptor.
+Specializes in top-end speed & launch torque."
+
+[node name="@Label@35" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38/@VBoxContainer@32" unique_id=40375901]
+layout_mode = 2
+
+[node name="@Label@36" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38/@VBoxContainer@32" unique_id=297391506]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Top Speed:  36 m/s [█████████░]
+Accel:      13 m/s² [███████░░░]
+Nitro Boost: 1.45x   [█████████░]
+Handling:   Arcade  [████████░░]"
+
+[node name="@Button@37" type="Button" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@38/@VBoxContainer@32" unique_id=929053919]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "✔ EQUIPPED"
+
+[node name="@PanelContainer@45" type="PanelContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31" unique_id=1212025982]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@VBoxContainer@39" type="VBoxContainer" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45" unique_id=1448270047]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="@Label@40" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45/@VBoxContainer@39" unique_id=1488463572]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 1, 0.45, 1)
+theme_override_font_sizes/font_size = 22
+text = "🟢 SAND HOPPER"
+
+[node name="@Label@41" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45/@VBoxContainer@39" unique_id=2081210896]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Agile all-terrain dune rover.
+Specializes in acceleration & off-road grip."
+
+[node name="@Label@42" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45/@VBoxContainer@39" unique_id=1973280189]
+layout_mode = 2
+
+[node name="@Label@43" type="Label" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45/@VBoxContainer@39" unique_id=2025039286]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Top Speed:  33 m/s [████████░░]
+Accel:      15 m/s² [█████████░]
+Nitro Boost: 1.40x   [████████░░]
+Handling:   Sharp   [██████████]"
+
+[node name="@Button@44" type="Button" parent="ModalsLayer/GarageModal/@VBoxContainer@27/@HBoxContainer@31/@PanelContainer@45/@VBoxContainer@39" unique_id=1538260817]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "SWITCH TO SAND HOPPER"
+
+[node name="ShopModal" type="PanelContainer" parent="ModalsLayer" unique_id=146495988]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 250.0
+offset_right = 1385.0
+offset_bottom = 830.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@46" type="VBoxContainer" parent="ModalsLayer/ShopModal" unique_id=1040186048]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@47" type="HBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=766916762]
+layout_mode = 2
+
+[node name="@Label@48" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@47" unique_id=878754464]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "🛍️ SOLAR STORE"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@47" unique_id=489132930]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@49" type="HSeparator" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=248049164]
+layout_mode = 2
+
+[node name="@HBoxContainer@54" type="HBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=1858559016]
+layout_mode = 2
+
+[node name="@VBoxContainer@52" type="VBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@54" unique_id=1514672173]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@Label@50" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@54/@VBoxContainer@52" unique_id=2130926462]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "🪙 500 Solar Coins"
+
+[node name="@Label@51" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@54/@VBoxContainer@52" unique_id=995350864]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Starter bundle for race entries & upgrades"
+
+[node name="@Button@53" type="Button" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@54" unique_id=862406563]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "GET / BUY"
+
+[node name="@HSeparator@55" type="HSeparator" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=1707647620]
+layout_mode = 2
+
+[node name="@HBoxContainer@60" type="HBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=1177298503]
+layout_mode = 2
+
+[node name="@VBoxContainer@58" type="VBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@60" unique_id=978114261]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@Label@56" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@60/@VBoxContainer@58" unique_id=1122053132]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "🪙 1,500 Solar Coins"
+
+[node name="@Label@57" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@60/@VBoxContainer@58" unique_id=2048564806]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Pro bundle with +20% bonus coins"
+
+[node name="@Button@59" type="Button" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@60" unique_id=462495537]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "GET / BUY"
+
+[node name="@HSeparator@61" type="HSeparator" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=664850199]
+layout_mode = 2
+
+[node name="@HBoxContainer@66" type="HBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=1090738741]
+layout_mode = 2
+
+[node name="@VBoxContainer@64" type="VBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@66" unique_id=934720298]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@Label@62" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@66/@VBoxContainer@64" unique_id=2124861504]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "💎 50 Gems"
+
+[node name="@Label@63" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@66/@VBoxContainer@64" unique_id=646176833]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Premium gems for exclusive kart cosmetics"
+
+[node name="@Button@65" type="Button" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@66" unique_id=2126168333]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "GET / BUY"
+
+[node name="@HSeparator@67" type="HSeparator" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=1374784087]
+layout_mode = 2
+
+[node name="@HBoxContainer@72" type="HBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=518417088]
+layout_mode = 2
+
+[node name="@VBoxContainer@70" type="VBoxContainer" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@72" unique_id=1386322927]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@Label@68" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@72/@VBoxContainer@70" unique_id=701149342]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "🚀 Super Nitro Booster"
+
+[node name="@Label@69" type="Label" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@72/@VBoxContainer@70" unique_id=1205613119]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Refill Nitro Tank + 25% Boost Efficiency"
+
+[node name="@Button@71" type="Button" parent="ModalsLayer/ShopModal/@VBoxContainer@46/@HBoxContainer@72" unique_id=335031289]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "GET / BUY"
+
+[node name="@HSeparator@73" type="HSeparator" parent="ModalsLayer/ShopModal/@VBoxContainer@46" unique_id=307847424]
+layout_mode = 2
+
+[node name="WalletModal" type="PanelContainer" parent="ModalsLayer" unique_id=1763419311]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 300.0
+offset_right = 1335.0
+offset_bottom = 780.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@74" type="VBoxContainer" parent="ModalsLayer/WalletModal" unique_id=1956277002]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@75" type="HBoxContainer" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=709596111]
+layout_mode = 2
+
+[node name="@Label@76" type="Label" parent="ModalsLayer/WalletModal/@VBoxContainer@74/@HBoxContainer@75" unique_id=185742673]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "👛 SOLANA RACING WALLET"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/WalletModal/@VBoxContainer@74/@HBoxContainer@75" unique_id=90007297]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@77" type="HSeparator" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=787626785]
+layout_mode = 2
+
+[node name="@Label@78" type="Label" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=1160731814]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 20
+text = "STATUS:  🟢 CONNECTED (Phantom Wallet)"
+
+[node name="@Label@79" type="Label" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=878865508]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "ADDRESS: 7xKXtg9QZ2fH4vLmP8wE2R9qP2Wz (Solana Devnet)"
+
+[node name="@HSeparator@80" type="HSeparator" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=1048149442]
+layout_mode = 2
+
+[node name="@Label@81" type="Label" parent="ModalsLayer/WalletModal/@VBoxContainer@74" unique_id=986556229]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "TOKEN BALANCES:
+• SOL:         2.450 SOL
+• Solar Coins: 1,250 COINS
+• Gems:        50 GEMS
+• Racing NFTs: Red Fury #042"
+
+[node name="HowToPlayModal" type="PanelContainer" parent="ModalsLayer" unique_id=860518740]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 250.0
+offset_right = 1385.0
+offset_bottom = 830.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@82" type="VBoxContainer" parent="ModalsLayer/HowToPlayModal" unique_id=1643448521]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@83" type="HBoxContainer" parent="ModalsLayer/HowToPlayModal/@VBoxContainer@82" unique_id=1969343160]
+layout_mode = 2
+
+[node name="@Label@84" type="Label" parent="ModalsLayer/HowToPlayModal/@VBoxContainer@82/@HBoxContainer@83" unique_id=1963448900]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "📖 HOW TO PLAY & RACING GUIDE"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/HowToPlayModal/@VBoxContainer@82/@HBoxContainer@83" unique_id=822307612]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@85" type="HSeparator" parent="ModalsLayer/HowToPlayModal/@VBoxContainer@82" unique_id=668599408]
+layout_mode = 2
+
+[node name="@Label@86" type="Label" parent="ModalsLayer/HowToPlayModal/@VBoxContainer@82" unique_id=1010597259]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "🎮 CONTROLS:
+  • W / UP ARROW     : Accelerate & Drive
+  • S / DOWN ARROW   : Brake & Reverse
+  • A / D / ARROWS   : Steer Left & Right
+  • SPACEBAR         : Supercharged Nitro Boost!
+  • R / ENTER        : Quick Reset to Checkpoint
+
+🏁 RACING RULES & MECHANICS:
+  • Pass checkpoints in sequence to complete laps.
+  • Pick up Solar Coins (yellow) to increase score & rewards.
+  • Collect Nitro Cells (cyan) to restore +35 boost charge.
+  • Watch out for obstacles: Cones (-15%), Tire Stacks (-35%), Barriers (-50%).
+  • OUT OF BOUNDS: Leaving the track triggers a 2-second countdown! Steer back onto the asphalt before time runs out to avoid checkpoint recovery."
+
+[node name="SettingsModal" type="PanelContainer" parent="ModalsLayer" unique_id=86745829]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 300.0
+offset_right = 1335.0
+offset_bottom = 780.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@87" type="VBoxContainer" parent="ModalsLayer/SettingsModal" unique_id=2011279927]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@88" type="HBoxContainer" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=1891753864]
+layout_mode = 2
+
+[node name="@Label@89" type="Label" parent="ModalsLayer/SettingsModal/@VBoxContainer@87/@HBoxContainer@88" unique_id=1632795007]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⚙️ GAME SETTINGS"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/SettingsModal/@VBoxContainer@87/@HBoxContainer@88" unique_id=347501048]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@90" type="HSeparator" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=1088962210]
+layout_mode = 2
+
+[node name="@Label@91" type="Label" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=162875280]
+layout_mode = 2
+text = "MASTER VOLUME: 100%"
+
+[node name="@HSlider@92" type="HSlider" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=685749730]
+layout_mode = 2
+value = 100.0
+
+[node name="@Label@93" type="Label" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=944718657]
+layout_mode = 2
+text = "ENGINE & SFX: 85%"
+
+[node name="@HSlider@94" type="HSlider" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=1993354474]
+layout_mode = 2
+value = 85.0
+
+[node name="@CheckButton@95" type="CheckButton" parent="ModalsLayer/SettingsModal/@VBoxContainer@87" unique_id=1742770255]
+layout_mode = 2
+text = "Fullscreen Display Mode"
+
+[node name="ProfileModal" type="PanelContainer" parent="ModalsLayer" unique_id=1334024191]
+layout_mode = 0
+offset_left = 635.0
+offset_top = 330.0
+offset_right = 1285.0
+offset_bottom = 750.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5le8")
+
+[node name="@VBoxContainer@96" type="VBoxContainer" parent="ModalsLayer/ProfileModal" unique_id=132365556]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@HBoxContainer@97" type="HBoxContainer" parent="ModalsLayer/ProfileModal/@VBoxContainer@96" unique_id=1479808525]
+layout_mode = 2
+
+[node name="@Label@98" type="Label" parent="ModalsLayer/ProfileModal/@VBoxContainer@96/@HBoxContainer@97" unique_id=1609140168]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "👤 RACER PROFILE"
+
+[node name="CloseButton" type="Button" parent="ModalsLayer/ProfileModal/@VBoxContainer@96/@HBoxContainer@97" unique_id=1173715015]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_a4bgr")
+text = "✖ CLOSE [ESC]"
+
+[node name="@HSeparator@99" type="HSeparator" parent="ModalsLayer/ProfileModal/@VBoxContainer@96" unique_id=12825196]
+layout_mode = 2
+
+[node name="@Label@100" type="Label" parent="ModalsLayer/ProfileModal/@VBoxContainer@96" unique_id=712196703]
+layout_mode = 2
+text = "RACER CALLSIGN:"
+
+[node name="@LineEdit@101" type="LineEdit" parent="ModalsLayer/ProfileModal/@VBoxContainer@96" unique_id=697635726]
+layout_mode = 2
+text = "Player123"
+
+[node name="@Label@102" type="Label" parent="ModalsLayer/ProfileModal/@VBoxContainer@96" unique_id=910832613]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "
+CAREER STATS:
+• Class:       Racer Rank A
+• Win Rate:    68%
+• Races:       25 Completed
+• Podiums:     14 Trophies
+• Solar Coins: 1,250"
